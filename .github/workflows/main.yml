@@ -1,0 +1,26 @@
+name: Github action maven build
+on:
+  push:
+    branches: [ "main" ]
+    
+
+jobs:
+  build-on-ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. checkout the main github branch
+        uses: actions/checkout@v3
+      
+      - name: 2. Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+        
+      - name: 3. Have Github action build maven projects
+        run: mvn -B package --file pom.xml
+        
+      - name: 4. List the current direcctory
+        run: ls -a
+        
